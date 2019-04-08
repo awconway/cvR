@@ -79,11 +79,11 @@ my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
   #for (k in 1:nrow(d)){
   #  unlist(plyr::llply(aff, function(x){x$'affilname'})
   #}
-  dois = identifiers(d, type='doi') # get DOIs, not available for all papers
+  dois = identifiers(d, type='doi') # get dois, not available for all papers
   dois = dois[duplicated(tolower(dois))==FALSE] # remove duplicates
   #eids = identifiers(d, type='eid') # get Scopus IDs, not available for all papers
   
-  # remove F1000 DOIs where there is second version (keep latest version)
+  # remove F1000 dois where there is second version (keep latest version)
   not.f1000 = dois[!str_detect(string=dois, pattern='f1000')]
   f1000 = dois[str_detect(string=dois, pattern='f1000')]
   if(length(f1000)>0){ # only if some F1000 journals
@@ -100,14 +100,14 @@ my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
   }
   if(length(f1000)==0){dois = not.f1000}
   
-  # d) get nicely formatted data for papers with a DOIs using crossref
+  # d) get nicely formatted data for papers with a dois using crossref
   cdata.nonbibtex = cr_works(dois)$data
   # add Open Access status (March 2018)
   cdata.nonbibtex$OA = NA
   # run with fail
   n.match = count = 0
   while(n.match != nrow(cdata.nonbibtex)&count < 3){ # run three times max
-    OAs = purrr::map_df(cdata.nonbibtex$DOI, 
+    OAs = purrr::map_df(cdata.nonbibtex$doi, 
                 plyr::failwith(f = function(x) roadoi::oadoi_fetch(x, email = "a.barnett@qut.edu.au")))
     n.match = nrow(OAs)
     count = count + 1
@@ -169,13 +169,13 @@ my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
       issue = cdata.nonbibtex$issue[k]
       pages = cdata.nonbibtex$page[k]
       # doi
-      DOI = cdata.nonbibtex$DOI[k]
+      doi = cdata.nonbibtex$doi[k]
       # OA
       OA = cdata.nonbibtex$OA[k]
       # type
       type = cdata.nonbibtex$type[k]
       # put it all together
-      frame = data.frame(Journal=journal, Title=title, Year=year, Volume=volume, Issue=issue, Pages=pages, Type=type, DOI=DOI, OA=OA) 
+      frame = data.frame(Journal=journal, Title=title, Year=year, Volume=volume, Issue=issue, Pages=pages, Type=type, doi=doi, OA=OA) 
       papers = rbind(papers, frame)
     }
   }
@@ -195,7 +195,7 @@ my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
     authors = authors[!dups,]
   }
   
-  # remove later versions of paper with almost identical DOI _ TO DO
+  # remove later versions of paper with almost identical doi _ TO DO
   
   ## count first author papers
   # make alternative versions of name
@@ -254,8 +254,8 @@ my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
   if(class(papers$Pages)=='factor'){
     papers$Pages = as.character(papers$Pages)
   }
-  if(class(papers$DOI)=='factor'){
-    papers$DOI = as.character(papers$DOI)
+  if(class(papers$doi)=='factor'){
+    papers$doi = as.character(papers$doi)
   }
   
   ## need to remove/change special characters like: … and -- from title
