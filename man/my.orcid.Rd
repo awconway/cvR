@@ -2,12 +2,10 @@
 % Please edit documentation in R/my.orcid.R
 \name{my.orcid}
 \alias{my.orcid}
-\title{orcid.R
-Take ORCID ID and make a list of papers}
+\title{Take ORCID ID and make a list of papers}
 \usage{
 my.orcid(orcid.id = "0000-0002-2358-2440")
 }
 \description{
-orcid.R
 Take ORCID ID and make a list of papers
 }

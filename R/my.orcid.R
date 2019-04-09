@@ -1,11 +1,4 @@
-#' orcid.R
 #' Take ORCID ID and make a list of papers
-# use rcrossref to get better formatted data
-# Version for shiny
-# March 2018
-
-# set token as an environmental variable (March 2018)
-
 
 #' @export
 my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
