@@ -19,4 +19,7 @@ Depends:
     rcrossref,
     roadoi
 Imports: 
-    plyr
+    plyr,
+    purrr,
+    magrittr
+RoxygenNote: 6.1.1
