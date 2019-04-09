@@ -2,6 +2,7 @@
 
 export("%>%")
 export(display.papers)
+export(my.filter)
 export(my.orcid)
 export(paste5)
 importFrom(magrittr,"%>%")

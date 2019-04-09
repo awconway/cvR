@@ -1,0 +1,167 @@
+---
+title: "Curriculum Vitae"
+author: "Aaron Conway RN PhD"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 12pt
+output: word_document
+params:
+  orcid.id: "0000-0002-9583-8636"
+  years.since: 2010
+  spacer: ', '
+  journal.only: "No"
+  order: "dyear"
+  max.authors: 3
+  style: "APA"
+  bullets: 'numbers'
+  extra.order: "None"
+  flag.OA: TRUE
+  bold.author: TRUE
+---
+
+```{r setup, include=FALSE}
+x  <- "dc7ea3ae-38fd-4188-8bd1-1db4215ea139"
+Sys.setenv(ORCID_TOKEN=x, orcid_email="aaron.conway@utoronto.ca")
+# TO DO, make a function to clean pages for multiple formats
+# TO DO, ARC style - not finished
+
+knitr::opts_chunk$set(echo = FALSE, warnings=FALSE, comment='')
+
+```
+
+
+
+```{r list.papers, results='asis'}
+# bullets (turning words into TRUE/FALSE)
+use.bullets = FALSE
+if(params$bullets=='bullets'){use.bullets = TRUE}
+# how to highlight Open Access papers:
+star.to.use = "\\+ " 
+
+results = my.orcid(params$orcid.id) # single
+  
+# blurb at top
+if(is.null(inFile) == TRUE){cat('Publication report for ', results$name, '.\n', sep='')} # single
+if(is.null(inFile) == FALSE){cat('Combined publication report for ', paste(results$name, collapse=', '), '.\n', sep='')} # multiple
+cat('  \n') # line break
+cat('Earliest year of papers =', params$years.since, '.\n', sep='')
+papers.sorted = 'bottom'
+if(params$order=='dyear'){papers.sorted = 'top'}
+if(params$order=='journal'){papers.sorted = 'journal name'}
+cat('Most recent papers at ', papers.sorted, '.\n', sep='')
+if(params$journal.only=='Yes'){cat('Journals only.\n', sep='')} 
+if(params$flag.OA==TRUE & sum(results$oa.warning)==0){cat("Open Access publications highlighted using a '+' at the start of the reference.\n", sep='')} 
+if(params$flag.OA==TRUE & sum(results$oa.warning) > 0){cat("Open Access data did not load; try again.\n", sep='')} 
+cat('  \n') # line break
+
+papers = my.filter(results, max.authors=params$max.authors, order=params$order,
+                   journal.only=params$journal.only, years.since=params$years.since,
+                   spacer=params$spacer, bold.author = params$bold.author)
+
+# no extra ordering
+if(params$extra.order == 'None'){
+  to.display = display.papers(papers, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets)
+  cat(to.display)
+}
+
+# ARC - different ordering
+if(params$extra.order == 'ARC'){
+  ## sort by output type 
+  counter = 0
+  # a) books
+  index = grep('book', tolower(papers$Type))
+  if(length(index)>0){
+     cat('## Books\n', sep='\n')
+     books = papers[index,]
+     for (k in 1:nrow(books)){
+         star = ""
+        if(books$OA[k]==TRUE & params$flag.OA==TRUE){star = star.to.use} # star open access
+       counter = counter + 1 
+       cat(counter, '. ', star, books$Authors[k], ", ", books$Year[k], ", '", books$Title[k], "', *", books$Journal[k], '*', sep='')
+       # add doi if not null
+       if(is.na(books$DOI[k])==F){cat(', doi:', books$DOI[k], sep='')}
+     }
+  }
+  # b) journal articles
+  index = grep('journal', tolower(papers$Type))
+  if(length(index)>0){
+     cat('## Journal articles\n', sep='\n')
+     journals = papers[index,]
+     for (k in 1:nrow(journals)){
+         star = ""
+        if(journals$OA[k]==TRUE & params$flag.OA==TRUE){star = star.to.use} # star open access
+       counter = counter + 1 
+       cat(counter, '. ', star, journals$Authors[k], ", ", journals$Year[k], ", '", journals$Title[k], "', *", journals$Journal[k], '*', sep='')
+       # add doi if not null
+       if(is.na(journals$DOI[k])==F){cat(', doi:', journals$DOI[k], sep='')}
+      cat('  \n', sep='') # line break
+    }
+  }
+  # c) conferences 
+  index = grep('conference', tolower(papers$Type))
+  if(length(index)>0){
+     cat('## Journal articles\n', sep='\n')
+     conferences = conferences[index,]
+     for (k in 1:nrow(conferences)){
+         star = ""
+        if(conferences$OA[k]==TRUE & params$flag.OA==TRUE){star = star.to.use} # star open access
+       counter = counter + 1 
+       cat(counter, '. ', star, conferences$Authors[k], ", ", conferences$Year[k], ", '", conferences$Title[k], "', *", conferences$Journal[k], '*', sep='')
+       # add doi if not null
+       if(is.na(conferences$DOI[k])==F){cat(', doi:', conferences$DOI[k], sep='')}
+      cat('  \n', sep='') # line break
+    }
+  }
+  # d) other
+  index = grep('conference|journal|book', tolower(papers$Type), invert = T)
+  if(length(index)>0){
+     cat('## Other\n', sep='\n')
+     other = papers[index,]
+     for (k in 1:nrow(other)){
+         star = ""
+        if(other$OA[k]==TRUE & params$flag.OA==TRUE){star = star.to.use} # star open access
+       counter = counter + 1 
+       cat(counter, '. ', star, other$Authors[k], ", ", other$Year[k], ", '", other$Title[k], "', *", other$Journal[k], '*', sep='')
+       # add doi if not null
+       if(is.na(other$DOI[k])==F){cat(', doi:', other$DOI[k], sep='')}
+      cat('  \n', sep='') # line break
+    }
+  }
+} # end of ARC if
+
+# split by author order - different ordering
+if(params$extra.order == 'split'){
+
+  # a) First author
+  if(sum(papers$First.author) > 0){
+    cat('## First author\n', sep='\n')
+    this = dplyr::filter(papers, First.author==1)
+    to.display = display.papers(this, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets)
+    cat(to.display)
+    cat('\n\n')
+    counter = nrow(this) # for numbers instead of bullets
+  }
+  
+  # b) Last author
+  if(sum(papers$Last.author) > 0){
+    cat('## Last author\n', sep='\n')
+    this = dplyr::filter(papers, Last.author==1)
+    to.display = display.papers(this, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets, counter.start=counter)
+    cat(to.display)
+    cat('\n\n')
+    counter = counter + nrow(this) # for numbers instead of bullets
+  }
+  
+  # c) Neither first nor last author
+  this = dplyr::filter(papers, Last.author==0 & First.author==0)
+  if(nrow(this) > 0){
+    cat('## Neither first nor last author\n', sep='\n')
+    to.display = display.papers(this, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets, counter.start=counter)
+    cat(to.display)
+    cat('\n')
+  }
+  
+} # end of `split` if
+
+```
+
+
