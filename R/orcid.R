@@ -1,30 +1,13 @@
-# orcid.R
-# Take ORCID ID and make a list of papers
+#' orcid.R
+#' Take ORCID ID and make a list of papers
 # use rcrossref to get better formatted data
 # Version for shiny
 # March 2018
 
 # set token as an environmental variable (March 2018)
-x <- "07073399-4dcc-47b3-a0a8-925327224519"
-Sys.setenv(ORCID_TOKEN=x)
 
-## Test IDs
-# orcid.id = '0000-0003-1602-4544'
-# orcid.id = '0000-0001-8369-1238' # Suzanne
-# orcid.id = '0000-0003-0152-4394' # Richard
-# orcid.id = '0000-0002-7129-0039' # Sue
-# orcid.id = '0000-0003-2434-4206' # David Moher
-# orcid.id ='0000-0002-2358-2440' # ginny 
-# orcid.id ='0000-0001-6339-0374' # me
-# orcid.id = '0000-0002-5559-3267' # nick
-# orcid.id='0000-0001-7733-287X'
-# orcid.id = '0000-0002-5808-4249' #Jenny
-# orcid.id='0000-0001-7564-073X' # Paul
-# orcid.id='0000-0003-3637-2423' # Anisa
-# orcid.id='0000-0002-6020-9733' # Lionel
-# orcid.id='0000-0002-0630-3825'
 
-# main function
+#' @export
 my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
   ret = list() # start with blank output
 

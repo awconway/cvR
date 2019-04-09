@@ -1,7 +1,8 @@
-# paste5.R
+#' paste5.R
 # from here: https://stackoverflow.com/questions/13673894/suppress-nas-in-paste
 # May 2017
 
+#' @export
 paste5 <- function(..., sep = " ", collapse = NULL, na.rm = T) {
   if (na.rm == F)
     paste(..., sep = sep, collapse = collapse)

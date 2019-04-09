@@ -17,7 +17,8 @@ Depends:
     rentrez,
     stringr,
     rcrossref,
-    roadoi
+    roadoi,
+    tibble
 Imports: 
     plyr,
     purrr,
