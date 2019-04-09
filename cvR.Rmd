@@ -2,19 +2,19 @@
 title: "Curriculum Vitae"
 author: "Aaron Conway RN PhD"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-output: html_document # Change to word_docuent to knit to word. Note: html output can also just be opened in word without any issues
+output: html_document
 params:
-  orcid.id: "" # 16 digit orcid id goes here
-  years.since: 2010 # Change to base year of publications you want to retrieve
+  orcid.id: "0000-0002-9583-8636"
+  years.since: 2010
   spacer: ', '
-  journal.only: "No" #Change to Yes if you only want journal articles
-  order: "dyear" # Change to "ayear" if you want most recent first
-  max.authors: 3 # Change to desired number of authors listed in publications
-  style: "APA" #Other option is "Harvard"
-  bullets: 'numbers' #Other option is 'bullets' 
+  journal.only: "No"
+  order: "dyear"
+  max.authors: 3
+  style: "APA"
+  bullets: 'numbers'
   extra.order: 'None' # alternative is 'ARC' style
-  flag.OA: FALSE # Change to true if you want a + sign before publications
-  bold.author: FALSE # Change to true if you want your name to be in bold
+  flag.OA: FALSE
+  bold.author: FALSE
 ---
 
 ```{r setup, include=FALSE}
@@ -22,16 +22,16 @@ library(cvR)
 library(scholar)
 library(rorcid)
 library(kableExtra)
-x  <- "" # Insert your ORCID token from calling rorcid::orcid_auth() in console
-Sys.setenv(ORCID_TOKEN=x, orcid_email="emailaddress")
+x  <- "dc7ea3ae-38fd-4188-8bd1-1db4215ea139"
+Sys.setenv(ORCID_TOKEN=x, orcid_email="aaron.conway@utoronto.ca")
 knitr::opts_chunk$set(echo = FALSE, warnings=FALSE, comment='')
 ```
 
-
+# Aaron Conway RN PhD
 
 ----
 
->  Brief summary of role here<br>email.address
+>  RBC Chair in Cardiovascular Nursing Research | Peter Munk Cardiac Centre<br>Assistant Professor | Lawrence S. Bloomberg Faculty of Nursing | University of Toronto<br>aaron.conway@utoronto.ca
 
 
 ----
@@ -86,7 +86,7 @@ funding <- tibble(
   end = purrr::map_chr(funding, "end-date.year.value")) %>% 
   mutate(timeframe = glue::glue("{start} - {end}")) %>% 
   select(type, funder, title, timeframe) 
-
+funding$type <- stringr::str_replace_all(funding$type, "SALARY_AWARD", "SALARY AWARD")
   funding <- funding %>% 
   mutate(Amount = amount)
 kable(funding,  col.names = c("Type", "Funder", "Title", "Duration", "Amount")) %>%
@@ -98,7 +98,7 @@ kable(funding,  col.names = c("Type", "Funder", "Title", "Duration", "Amount")) 
 
 
 ```{r}
-results <- my.orcid(params$orcid.id) 
+results <- my.orcid(params$orcid.id) # single
 ```
 
 
