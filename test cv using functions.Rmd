@@ -75,7 +75,7 @@ if(params$extra.order == 'ARC'){
        counter = counter + 1 
        cat(counter, '. ', star, books$Authors[k], ", ", books$Year[k], ", '", books$Title[k], "', *", books$Journal[k], '*', sep='')
        # add doi if not null
-       if(is.na(books$DOI[k])==F){cat(', doi:', books$DOI[k], sep='')}
+       if(is.na(books$doi[k])==F){cat(', doi:', books$doi[k], sep='')}
      }
   }
   # b) journal articles
@@ -89,7 +89,7 @@ if(params$extra.order == 'ARC'){
        counter = counter + 1 
        cat(counter, '. ', star, journals$Authors[k], ", ", journals$Year[k], ", '", journals$Title[k], "', *", journals$Journal[k], '*', sep='')
        # add doi if not null
-       if(is.na(journals$DOI[k])==F){cat(', doi:', journals$DOI[k], sep='')}
+       if(is.na(journals$doi[k])==F){cat(', doi:', journals$doi[k], sep='')}
       cat('  \n', sep='') # line break
     }
   }
@@ -104,7 +104,7 @@ if(params$extra.order == 'ARC'){
        counter = counter + 1 
        cat(counter, '. ', star, conferences$Authors[k], ", ", conferences$Year[k], ", '", conferences$Title[k], "', *", conferences$Journal[k], '*', sep='')
        # add doi if not null
-       if(is.na(conferences$DOI[k])==F){cat(', doi:', conferences$DOI[k], sep='')}
+       if(is.na(conferences$doi[k])==F){cat(', doi:', conferences$doi[k], sep='')}
       cat('  \n', sep='') # line break
     }
   }
@@ -119,7 +119,7 @@ if(params$extra.order == 'ARC'){
        counter = counter + 1 
        cat(counter, '. ', star, other$Authors[k], ", ", other$Year[k], ", '", other$Title[k], "', *", other$Journal[k], '*', sep='')
        # add doi if not null
-       if(is.na(other$DOI[k])==F){cat(', doi:', other$DOI[k], sep='')}
+       if(is.na(other$doi[k])==F){cat(', doi:', other$doi[k], sep='')}
       cat('  \n', sep='') # line break
     }
   }
