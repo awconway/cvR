@@ -3,7 +3,8 @@
 #' @param papers Result of a call to my.filter()
 
 #' @export
-print.papers <- function(papers = papers){
+print.papers <- function(papers){
+  
   # bullets (turning words into TRUE/FALSE)
   use.bullets = FALSE
   if(params$bullets=='bullets'){use.bullets = TRUE}

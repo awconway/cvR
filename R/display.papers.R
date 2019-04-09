@@ -1,4 +1,4 @@
-#' display.papers.R
+#' display.papers
 #' function to display papers using different formating styles
 # Sep 2018
 

@@ -4,7 +4,7 @@
 \alias{print.papers}
 \title{Print the publications in cv}
 \usage{
-\method{print}{papers}(papers = papers)
+\method{print}{papers}(papers)
 }
 \arguments{
 \item{papers}{Result of a call to my.filter()}

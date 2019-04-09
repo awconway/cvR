@@ -2,13 +2,13 @@
 % Please edit documentation in R/display.papers.R
 \name{display.papers}
 \alias{display.papers}
-\title{display.papers.R
+\title{display.papers
 function to display papers using different formating styles}
 \usage{
 display.papers(papers, in.style = "APA", star.to.use, flag.OA = TRUE,
   bullets = FALSE, counter.start = 0)
 }
 \description{
-display.papers.R
+display.papers
 function to display papers using different formating styles
 }
