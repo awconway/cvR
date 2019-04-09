@@ -1,7 +1,8 @@
-# display.papers.R
-# function to display papers using different formating styles
+#' display.papers.R
+#' function to display papers using different formating styles
 # Sep 2018
 
+#' @export 
 display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE, 
                           bullets=FALSE, counter.start=0){
   
