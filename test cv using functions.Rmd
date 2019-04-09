@@ -29,12 +29,6 @@ knitr::opts_chunk$set(echo = FALSE, warnings=FALSE, comment='')
 
 
 ```{r list.papers, results='asis'}
-# bullets (turning words into TRUE/FALSE)
-use.bullets = FALSE
-if(params$bullets=='bullets'){use.bullets = TRUE}
-# how to highlight Open Access papers:
-star.to.use = "\\+ " 
-
 results <- my.orcid(params$orcid.id) # single
   
 # blurb at top
@@ -56,7 +50,6 @@ papers = my.filter(results, max.authors=params$max.authors, order=params$order,
 
 
 print.papers(papers)
-
 ```
 
 

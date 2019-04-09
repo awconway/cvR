@@ -4,6 +4,12 @@
 
 #' @export
 print.papers <- function(papers = papers){
+  # bullets (turning words into TRUE/FALSE)
+  use.bullets = FALSE
+  if(params$bullets=='bullets'){use.bullets = TRUE}
+  # how to highlight Open Access papers:
+  star.to.use = "\\+ " 
+  
 # no extra ordering
 if(params$extra.order == 'None'){
   to.display = display.papers(papers, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets)
