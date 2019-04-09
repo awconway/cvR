@@ -40,7 +40,7 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
         pages = gsub('--', '-', pages) # try to get en dash?
         to.print = paste(to.print, paste(', ', pages, sep=''))
       }  
-      if(is.na(papers$DOI[34])==F){to.print = paste(to.print, paste(' doi:', papers$DOI[k], sep=''))}
+      if(is.na(papers$DOI[k])==F){to.print = paste(to.print, paste(' doi:', papers$DOI[k], sep=''))}
     } # end of APA
     
   } # end of for loop

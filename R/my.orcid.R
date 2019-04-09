@@ -1,18 +1,18 @@
 #' Take ORCID ID and make a list of papers
 
 #' @export
-my.orcid = function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
+my.orcid  <- function(orcid.id='0000-0002-2358-2440'){ # default here = Ginny
   ret = list() # start with blank output
 
   # a) select person
-  bio = orcid_id(orcid = orcid.id, profile='profile') # get basics
+  bio = rorcid::orcid_id(orcid = orcid.id) # get basics
   name = paste(bio[[1]]$`name`$`given-names`$value,
                bio[[1]]$`name`$`family-name`$value)
   name = gsub('  ', ' ', name) # remove double space
   name = gsub(' $', '', name) # remove trailing space
   
   # b) select works
-  d = works(orcid_id(orcid = orcid.id)) # get works as a tibble
+  d = rorcid::works(orcid_id(orcid = orcid.id)) # get works as a tibble
 
   # if no papers then end function here
   if(nrow(d)==0){ 

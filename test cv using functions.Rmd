@@ -19,13 +19,11 @@ params:
 ---
 
 ```{r setup, include=FALSE}
+
+library(cvR)
 x  <- "dc7ea3ae-38fd-4188-8bd1-1db4215ea139"
 Sys.setenv(ORCID_TOKEN=x, orcid_email="aaron.conway@utoronto.ca")
-# TO DO, make a function to clean pages for multiple formats
-# TO DO, ARC style - not finished
-
 knitr::opts_chunk$set(echo = FALSE, warnings=FALSE, comment='')
-
 ```
 
 
@@ -37,7 +35,7 @@ if(params$bullets=='bullets'){use.bullets = TRUE}
 # how to highlight Open Access papers:
 star.to.use = "\\+ " 
 
-results <- cvR::my.orcid(params$orcid.id) # single
+results <- my.orcid(params$orcid.id) # single
   
 # blurb at top
 cat('Publication report for ', results$name, '.\n', sep='') # single
