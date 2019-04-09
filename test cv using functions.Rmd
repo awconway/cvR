@@ -13,7 +13,7 @@ params:
   max.authors: 3
   style: "APA"
   bullets: 'numbers'
-  extra.order: "None"
+  extra.order: 'None'
   flag.OA: TRUE
   bold.author: TRUE
 ---
@@ -40,8 +40,7 @@ star.to.use = "\\+ "
 results = my.orcid(params$orcid.id) # single
   
 # blurb at top
-if(is.null(inFile) == TRUE){cat('Publication report for ', results$name, '.\n', sep='')} # single
-if(is.null(inFile) == FALSE){cat('Combined publication report for ', paste(results$name, collapse=', '), '.\n', sep='')} # multiple
+cat('Publication report for ', results$name, '.\n', sep='') # single
 cat('  \n') # line break
 cat('Earliest year of papers =', params$years.since, '.\n', sep='')
 papers.sorted = 'bottom'
@@ -60,7 +59,7 @@ papers = my.filter(results, max.authors=params$max.authors, order=params$order,
 # no extra ordering
 if(params$extra.order == 'None'){
   to.display = display.papers(papers, in.style=params$style, star.to.use=star.to.use, flag.OA=params$flag.OA, bullets=use.bullets)
-  cat(to.display)
+  ct(to.display)
 }
 
 # ARC - different ordering
