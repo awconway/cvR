@@ -11,7 +11,7 @@ params:
   max.authors: 3
   style: "APA"
   bullets: 'numbers'
-  extra.order: 'None' # alternative is 'ARC' style
+  extra.order: 'None'
   flag.OA: FALSE
   bold.author: FALSE
 ---
