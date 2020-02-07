@@ -46,7 +46,7 @@ if(params$extra.order == 'ARC'){
       counter = counter + 1 
       cat(counter, '. ', star, journals$Authors[k], ", ", journals$Year[k], ", '", journals$Title[k], "', *", journals$Journal[k], '*', sep='')
       # add doi if not null
-      if(is.na(journals$doi[k])==F){glue::glue('. [doi:{journals$doi[k]}](https://dx.doi.org/{journals$doi[k]})')}
+      if(is.na(journals$doi[k])==F){cat(glue::glue('. [doi:{journals$doi[k]}](https://dx.doi.org/{journals$doi[k]})'))}
       cat('  \n', sep='') # line break
     }
   }
