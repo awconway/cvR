@@ -26,9 +26,9 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
       if(is.na(papers$Pages[k])==F){
         pages = papers$Pages[k]
         pages = gsub('--', '-', pages) # try to get en dash?
-        to.print = paste(to.print, paste(', pp. ', pages, sep=''))
+        to.print = paste(to.print, paste(', pp. ', pages, '.', sep=''))
       }  
-      if(is.na(papers$doi[k])==F){to.print = paste(to.print, glue::glue('. <a href="https://dx.doi.org/{papers$doi[k]}">doi:{papers$doi[k]}</a>'))}
+      if(is.na(papers$doi[k])==F){to.print = paste(to.print, glue::glue(' <a href="https://dx.doi.org/{papers$doi[k]}">doi:{papers$doi[k]}</a>'))}
     } # end of Harvard
 
     if(in.style == 'APA'){
@@ -38,7 +38,7 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
       if(is.na(papers$Pages[k])==F){
         pages = papers$Pages[k]
         pages = gsub('--', '-', pages) # try to get en dash?
-        to.print = paste(to.print, paste(', ', pages, sep=''))
+        to.print = paste(to.print, paste(', ', pages, '.', sep=''))
       }  
       if(is.na(papers$doi[k])==F){to.print = paste(to.print, glue::glue('. <a href="https://dx.doi.org/{papers$doi[k]}">doi:{papers$doi[k]}</a>'))}
     } # end of APA
