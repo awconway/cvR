@@ -34,7 +34,7 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
     if(in.style == 'APA'){
       to.print = paste(to.print, paste(star, papers$Authors[k], " (", papers$Year[k], "). ", papers$Title[k], '. *', papers$Journal[k], '*', sep=''))
       # add volume/issue/doi if not null
-      if(is.na(papers$Volume[k])==F){to.print = paste(to.print, paste(', **', papers$Volume[k], '**', sep=''))}  
+      if(is.na(papers$Volume[k])==F){to.print = glue::glue('{to.print}, **{papers$Volume[k]}**')}  
       if(is.na(papers$Pages[k])==F){
         pages = papers$Pages[k]
         pages = gsub('--', '-', pages) # try to get en dash?
