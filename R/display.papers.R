@@ -38,9 +38,9 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
       if(is.na(papers$Pages[k])==F){
         pages = papers$Pages[k]
         pages = gsub('--', '-', pages) # try to get en dash?
-        to.print = paste(to.print, paste(', ', pages, '.', sep=''))
+        to.print = glue::glue('{to.print}, {pages}')
       }  
-      if(is.na(papers$doi[k])==F){to.print = glue:glue('{to.print}. <a href="https://dx.doi.org/{papers$doi[k]}">doi:{papers$doi[k]}</a>')}
+      if(is.na(papers$doi[k])==F){to.print = glue::glue('{to.print}. <a href="https://dx.doi.org/{papers$doi[k]}">doi:{papers$doi[k]}</a>')}
     } # end of APA
     
   } # end of for loop
