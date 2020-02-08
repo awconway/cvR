@@ -32,7 +32,7 @@ display.papers = function(papers, in.style='APA', star.to.use, flag.OA=TRUE,
     } # end of Harvard
 
     if(in.style == 'APA'){
-      to.print = glue::glue('{to.print}{star}{papers$Authors[k]}, ("{papers$Year[k]}). {papers$Title[k]}. *{papers$Journal[k]}*')
+      to.print = glue::glue('{to.print}{star}{papers$Authors[k]}, ({papers$Year[k]}). {papers$Title[k]}. *{papers$Journal[k]}*')
       # add volume/issue/doi if not null
       if(is.na(papers$Volume[k])==F){to.print = glue::glue('{to.print}, **{papers$Volume[k]}**')}  
       if(is.na(papers$Pages[k])==F){
